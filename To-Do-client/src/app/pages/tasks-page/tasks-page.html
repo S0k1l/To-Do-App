@@ -1,0 +1,52 @@
+@if (vm$ | async; as vm) {
+  <div class="flex h-screen bg-gray-50">
+    <app-sidebar
+      [categories]="vm.categories"
+      [selectedCategory]="vm.filter.categoryId"
+      (categorySelected)="onCategorySelect($event)"
+      (logoutRequested)="onLogout()"
+      (categoryCreated)="onCreateCategory($event.name, $event.color)"
+      (categoryDelete)="onDeleteCategory($event)"
+      (categoryUpdate)="onUpdateCategory($event)"
+      class="flex"
+    >
+    </app-sidebar>
+
+    <main class="flex-1 flex flex-col overflow-y-auto">
+      <app-task-search [initialSearch]="vm.filter.search" (searchChanged)="onSearch($event)">
+      </app-task-search>
+
+      <div class="p-6 max-w-4xl w-full mx-auto space-y-6">
+        <app-task-create
+          [categories]="vm.categories"
+          (taskCreated)="onCreateTask($event.title, $event.categoryId, $event.description)"
+        >
+        </app-task-create>
+
+        <section class="space-y-2 mt-4">
+          @if (vm.tasks.length === 0) {
+            <div class="text-center py-12 bg-white rounded-xl border border-gray-200 shadow-sm">
+              <p class="text-gray-500 text-sm mt-2">No tasks found. Time to relax!</p>
+            </div>
+          } @else {
+            <app-task-table
+              [tasks]="vm.tasks"
+              [categories]="vm.categories"
+              (taskUpdated)="onUpdateTask($event)"
+              (toggleStatus)="onToggleStatus($event)"
+              (delete)="onDeleteTask($event)"
+            ></app-task-table>
+          }
+        </section>
+
+        <app-pagination
+          [pageNumber]="vm.filter.pageNumber"
+          [pageSize]="vm.filter.pageSize"
+          [totalPages]="vm.filter.totalPages"
+          (pageChanged)="onPageChange($event)"
+        >
+        </app-pagination>
+      </div>
+    </main>
+  </div>
+}

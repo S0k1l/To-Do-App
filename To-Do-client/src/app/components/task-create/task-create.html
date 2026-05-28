@@ -1,0 +1,56 @@
+<section class="bg-white rounded-xl border border-gray-200 px-4 py-2 shadow-sm">
+  <form [formGroup]="newTaskForm" (submit)="onSubmit()" class="flex flex-col gap-3">
+    <div class="flex flex-col gap-1">
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <div class="w-full flex-1">
+          <input
+            type="text"
+            name="title"
+            formControlName="newTaskTitle"
+            placeholder="Task title..."
+            class="w-full border-b border-indigo-500 focus:ring-0 text-gray-700 placeholder-gray-400 text-base font-medium py-1.5 focus:outline-none"
+          />
+        </div>
+        <div class="w-full flex-1">
+          <input
+            type="text"
+            name="description"
+            formControlName="newTaskDescription"
+            placeholder="Task description..."
+            class="w-full border-b border-indigo-500 focus:ring-0 text-gray-700 placeholder-gray-400 text-base font-medium py-1.5 focus:outline-none"
+          />
+        </div>
+
+        <div
+          class="flex items-center w-full sm:w-auto justify-between sm:justify-end gap-3 border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-100"
+        >
+          <select
+            name="categoryId"
+            formControlName="newTaskCategoryId"
+            class="text-sm text-gray-500 border border-gray-200 rounded-lg px-2.5 py-1.5 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          >
+            <option [value]="null" disabled selected hidden>Choose a category</option>
+            <option [value]="null">Uncategorized</option>
+            @for (cat of categories(); track cat.id) {
+              <option [value]="cat.id">{{ cat.name }}</option>
+            }
+          </select>
+
+          <button
+            type="submit"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-lg text-sm font-medium shadow transition-colors disabled:bg-gray-300 disabled:shadow-none"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      @if (titleControl.invalid && (titleControl.touched || titleControl.dirty)) {
+        <p class="text-sm text-red-500">
+          @if (titleControl.hasError('required')) {
+            Task title is required.
+          }
+        </p>
+      }
+    </div>
+  </form>
+</section>

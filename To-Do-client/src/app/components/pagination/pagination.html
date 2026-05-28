@@ -1,0 +1,41 @@
+<footer
+  class="flex items-center justify-between border-t border-gray-200 pt-4 px-2 mt-4 select-none"
+>
+  <div class="text-xs font-medium text-gray-500">
+    Page <span class="text-gray-800 font-semibold">{{ pageNumber() }}</span>
+  </div>
+
+  <div class="inline-flex space-x-2">
+    <button
+      (click)="onPrevPage()"
+      [disabled]="pageNumber() === 1"
+      class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-xl text-xs font-semibold bg-white text-gray-700 hover:bg-gray-50 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-gray-700 disabled:cursor-not-allowed shadow-sm"
+    >
+      <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          d="M15 19l-7-7 7-7"
+        ></path>
+      </svg>
+      Previous
+    </button>
+
+    <button
+      (click)="onNextPage()"
+      [disabled]="!hasNextPage"
+      class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-xl text-xs font-semibold bg-white text-gray-700 hover:bg-gray-50 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-gray-700 disabled:cursor-not-allowed shadow-sm"
+    >
+      Next
+      <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          d="M9 5l7 7-7 7"
+        ></path>
+      </svg>
+    </button>
+  </div>
+</footer>
